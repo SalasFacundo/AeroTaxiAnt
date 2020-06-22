@@ -16,9 +16,22 @@ public class Silver extends Avion  {
         super(combustible, costoKm, capacidad, velocidadMaxima, tipoMotor);
     }
 
+    public Silver()
+    {
+        
+    }
+    
     @Override
     public String toString() {
         return super.toString()+ "\nCatering : " + catering;
+    }
+
+    public boolean getCatering() {
+        return catering;
+    }
+
+    public void setCatering(boolean catering) {
+        this.catering = catering;
     }
     
     

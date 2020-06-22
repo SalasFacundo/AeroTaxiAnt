@@ -1,13 +1,19 @@
 
 package com.mycompany.aerotaxi;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Cliente {
-    protected String nombre, apellido;
-    protected int dni, edad;
-    protected ArrayList<Reserva> reservas= new ArrayList();
+public class Cliente  {
+    
+
+    
+    protected  String nombre;
+    protected  String apellido;
+    protected  int dni;
+    protected  int edad;
+    protected  ArrayList<Reserva> reservas= new ArrayList();
 
     public Cliente(String nombre, String apellido, int dni, int edad) {
         this.nombre = nombre;
@@ -16,6 +22,10 @@ public class Cliente {
         this.edad = edad;
     }
 
+    public Cliente()
+    {
+        
+    }
     
     public void agregarReserva(Reserva reserva)
     {
@@ -121,4 +131,41 @@ public class Cliente {
     public int hashCode() {
         return Objects.hash(dni);
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(ArrayList<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+    
+    
+    
+    
+    
 }

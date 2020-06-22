@@ -36,6 +36,11 @@ public abstract class Avion {
         precioAvion();
     }
 
+    public Avion()
+    {
+        
+    }
+    
     public void precioAvion() {
 
         if(this instanceof Bronze) precio=3000;
@@ -44,10 +49,7 @@ public abstract class Avion {
 
     }
 
-    public int getPrecio() {
-        return precio;
-    }
-
+  
     public void agregarFechaOcupada(LocalDate fecha){
         fechasOcupadas.add(fecha);
     }
@@ -93,4 +95,63 @@ public abstract class Avion {
     public int hashCode() {
         return Objects.hash(combustible, costoKm, capacidad, velocidadMaxima, tipoMotor, getPrecio());
     }
+
+      public int getPrecio() {
+        return precio;
+    }
+      
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }  
+      
+    public double getCombustible() {
+        return combustible;
+    }
+
+    public void setCombustible(double combustible) {
+        this.combustible = combustible;
+    }
+
+    public double getCostoKm() {
+        return costoKm;
+    }
+
+    public void setCostoKm(double costoKm) {
+        this.costoKm = costoKm;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public int getVelocidadMaxima() {
+        return velocidadMaxima;
+    }
+
+    public void setVelocidadMaxima(int velocidadMaxima) {
+        this.velocidadMaxima = velocidadMaxima;
+    }
+
+    public Propulsion getTipoMotor() {
+        return tipoMotor;
+    }
+
+    public void setTipoMotor(Propulsion tipoMotor) {
+        this.tipoMotor = tipoMotor;
+    }
+
+    public ArrayList<LocalDate> getFechasOcupadas() {
+        return fechasOcupadas;
+    }
+
+    public void setFechasOcupadas(ArrayList<LocalDate> fechasOcupadas) {
+        this.fechasOcupadas = fechasOcupadas;
+    }
+    
+    
+    
 }
