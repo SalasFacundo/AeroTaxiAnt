@@ -1,6 +1,8 @@
 package com.mycompany.aerotaxi;
 
+import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -92,13 +94,15 @@ public class Menu {
 
     private void menuAdministrador(AeroTaxi aeroTaxi){
         int opc;
-
+        
         System.out.println("------------------------AEROTAXI / ADMINISTRACIÓN------------------------------------");
         System.out.println("Seleccione una opción: ");
         System.out.println("1.Agregar avion a la flota");
         System.out.println("2.Ver listado de clientes");
         System.out.println("3.Ver listado de reservas");
         System.out.println("4.Ver reservas de una fecha");
+        System.out.println("5.Agregar Cliente");
+        System.out.println("6.Eliminar Cliente");
         System.out.println("0.Salir");
         try {
             opc = entrada.nextInt();
@@ -110,7 +114,7 @@ public class Menu {
                     menuAdministrador(aeroTaxi);
                     break;
                 case 2:
-                    aeroTaxi.mostrarClientes();
+                    Main.leerJsonCliente();
                     menuAdministrador(aeroTaxi);
                     break;
                 case 3:
@@ -121,6 +125,14 @@ public class Menu {
                 case 4:
                     LocalDate fecha = aeroTaxi.asignarFecha();
                     aeroTaxi.mostrarReservasDeLaFecha(fecha);
+                    menuAdministrador(aeroTaxi);
+                    break;
+                case 5:
+                    registrarCliente();
+                    menuAdministrador(aeroTaxi);
+                    break;
+                case 6:     
+                    eliminarCliente();
                     menuAdministrador(aeroTaxi);
                     break;
                 case 0:
@@ -208,4 +220,56 @@ public class Menu {
 
         return avion;
     }
+    
+    private void registrarCliente()
+    {
+        String nombre, apellido;
+        int dni, edad;        
+        
+        
+        System.out.println("Ingrese nombre de cliente");
+        nombre=entrada.next();
+        System.out.println("Ingrese apellido de cliente");
+        apellido=entrada.next();
+        System.out.println("Ingrese dni de cliente");
+        dni=entrada.nextInt();
+        System.out.println("Ingrese edad de cliente");
+        edad=entrada.nextInt();
+        
+        Cliente cliente1= new Cliente(nombre, apellido, dni, edad);
+        
+        aeroTaxi.clientes.add(cliente);
+        
+         Main.agregar2jsonCliente(cliente1);
+          
+    }
+    
+    private void eliminarCliente()
+    {
+        File archivo=new File("files\\Clientes.json");
+        ArrayList<Cliente> clientes= Main.json2arrayCliente();
+        int i, pos, opcion;
+        
+        for(i=0; i<clientes.size(); i++)
+        {
+            System.out.println(+i+1+"-"+clientes.get(i)+"\n");
+        }
+        
+        System.out.println("Ingrese un cliente para borrar");
+        opcion= entrada.nextInt();
+        
+        if(opcion<=1 && opcion> clientes.size())
+        {
+            System.out.println("Opcion invalida");
+            eliminarCliente();
+        }
+        
+        pos=opcion-1;
+        
+        clientes.remove(pos);
+        Main.array2jsonCliente(clientes);        
+        
+        aeroTaxi.clientes.remove(pos);
+    }
+    
 }
