@@ -29,7 +29,7 @@ public class Reserva {
 
     public void calcularDistancia() {
 
-        if(origen=="BsAs"       && destino=="Cordoba"    || destino=="BsAs"       && origen=="Cordoba"   ) distanciaDelViaje=695;
+             if(origen=="BsAs"       && destino=="Cordoba"    || destino=="BsAs"       && origen=="Cordoba"   ) distanciaDelViaje=695;
         else if(origen=="BsAs"       && destino=="Santiago"   || destino=="BsAs"       && origen=="Santiago"  ) distanciaDelViaje=1400;
         else if(origen=="BsAs"       && destino=="Montevideo" || destino=="BsAs"       && origen=="Montevideo") distanciaDelViaje=950;
         else if(origen=="Cordoba"    && destino=="Montevideo" || destino=="Cordoba"    && origen=="Montevideo") distanciaDelViaje=1190;
@@ -39,19 +39,14 @@ public class Reserva {
     }
 
     public void calcularCosto(){
-        costoDelViaje = (distanciaDelViaje * avion.costoKm) + (pasajeros * 3500) + avion.getPrecio();
-        System.out.println("ORIGEN: "+origen+" - Destino: "+destino);
-        System.out.println("cantkm ("+distanciaDelViaje+") * costokm ($"+avion.costoKm+") : $"+distanciaDelViaje*avion.costoKm);
-        System.out.println("cantPax * 3500: $"+pasajeros*3500);
-        System.out.println("Precio avion: $"+avion.getPrecio());
-        System.out.println("El costo del viaje es: $"+costoDelViaje);
+        costoDelViaje = (distanciaDelViaje * avion.costoKm) + (pasajeros * 3500) + avion.getPrecio();        
     }
 
     @Override
     public String toString() {
         return "\nReserva del cliente: "+cliente.nombre+" "+cliente.apellido+"\nFecha       :" + fecha + "\nOrigen      : " + origen +
                 "\nDestino     : " + destino + "\nPasajeros   : " + pasajeros +"\nCosto del viaje: $"+costoDelViaje+
-                "\nDETALLES DEL AVION:\nAvion      : " + avion;
+                "\nDETALLES DEL AVION:\n" + avion;
     }
 
 

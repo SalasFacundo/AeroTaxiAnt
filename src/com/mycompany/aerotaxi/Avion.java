@@ -25,7 +25,7 @@ public abstract class Avion {
     protected int velocidadMaxima;
     protected Propulsion tipoMotor;
     protected int precio;
-    protected ArrayList<LocalDate> fechasOcupadas = new ArrayList<>();
+    protected ArrayList<LocalDate> fechasOcupadas = new ArrayList();
 
     public Avion(double combustible, double costoKm, int capacidad, int velocidadMaxima, Propulsion tipoMotor) {
         this.combustible = combustible;
@@ -55,11 +55,8 @@ public abstract class Avion {
     }
 
     public void liberarFecha(LocalDate fecha){
-        for(LocalDate f : fechasOcupadas){
-            if (f.isEqual(fecha)){
-                fechasOcupadas.remove(f);
-            }
-        }
+        fechasOcupadas.remove(fecha);
+        System.out.println(fechasOcupadas);
     }
 
     public boolean comprobarDisponibilidad(LocalDate fecha){
@@ -74,10 +71,20 @@ public abstract class Avion {
 
     @Override
     public String toString() {
-        return  this.getClass()+"      \nCombustible : " + combustible + "      \nCostoKm     : " + costoKm + "      \nCapacidad   : " + capacidad + "      \nVelocidad   : " + velocidadMaxima + "      \nTipoMotor  : " + tipoMotor ;
+        return  "Avion: "+tipoAvion()+"      \nCombustible : " + combustible + "      \nCostoKm     : " + costoKm + "      \nCapacidad   : " + capacidad + "      \nVelocidad   : " + velocidadMaxima + "      \nTipoMotor  : " + tipoMotor ;
     }
 
 
+    
+    private String tipoAvion()
+    {
+        String tipo="";
+        if(this instanceof Bronze) tipo = "Bronze";
+        else if(this instanceof Silver) tipo = "Silver";
+        else if(this instanceof Gold)   tipo = "Gold";
+        
+        return tipo;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

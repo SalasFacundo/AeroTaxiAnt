@@ -36,7 +36,7 @@ public class Cliente  {
     {
        LocalDate hoy= LocalDate.now();
        int flag=0;
-        // Eliminar la reserva de la lista del cliente
+                                                                            // Eliminar la reserva de la lista del cliente
         for(int i=0; i<reservas.size(); i++)
         {
             if(reservas.get(i).equals(reserva))
@@ -58,12 +58,13 @@ public class Cliente  {
                 flag=flag;
             }
             
-            if(flag==0)
-            {
-                System.out.println("\nLa reserva no existe o ha sido eliminada");
-            }
             
         }
+        
+        if(flag==0)
+            {
+                System.out.println("\nLa reserva no existe o ha sido eliminada de la lista del cliente");
+            }            
        
     }
     
@@ -73,7 +74,8 @@ public class Cliente  {
             System.out.println("RESERVAS DEL CLIENTE: "+nombre+" "+apellido);
             for(int i=0; i<reservas.size(); i++)
             {
-                System.out.println(reservas.get(i)+"\n-----------------------\n");
+               System.out.println((i+1)+"-"+reservas.get(i)+"\n-----------------------\n");
+                
             }
         }else {
             System.out.println("No ha realizado reservas.");
@@ -89,13 +91,13 @@ public class Cliente  {
         
         for(int i=0; i<reservas.size(); i++)
         {
-            if(reservas.get(i).avion instanceof Gold)   gold=true;   
+                 if(reservas.get(i).avion instanceof Gold)   gold=true;   
             else if(reservas.get(i).avion instanceof Silver) silver=true;
             else if(reservas.get(i).avion instanceof Bronze) bronze=true;
         }
-        if(gold ==true)                     rta="Gold";        
-        if(gold ==false && silver==true)    rta="Silver";        
-        if(silver==false && bronze==true)   rta="Bronze";
+        if(gold ==true)                          rta="Gold";                                     //Si existe un avion Gold guarda este como mejor   
+        if(gold ==false && silver==true)    rta="Silver";                                   //Si no existe un avion Gold, y existe un Silver guarda este como mejor     
+        if(silver==false && bronze==true)   rta="Bronze";                                   //Si no existe 
         
         return rta;
     }

@@ -114,11 +114,13 @@ public class Menu {
                     menuAdministrador(aeroTaxi);
                     break;
                 case 2:
-                    Main.leerJsonCliente();
+                    aeroTaxi.mostrarClientes();
                     menuAdministrador(aeroTaxi);
                     break;
                 case 3:
                     aeroTaxi.mostrarReservas();
+                    
+                    
                     menuAdministrador(aeroTaxi);
                     break;
 
@@ -159,6 +161,8 @@ public class Menu {
         System.out.println("Ingrese el tipo de avion que desea agregar:\n1-Gold\n2-Silver\n3-Bronze");
         try {
             opcionTipoAvion = entrada.nextInt();
+            
+            //Si elige una opcion que no es valida, la pedimos de vuelta hasta que la ingrese correctamente
             while (opcionTipoAvion < 1 || opcionTipoAvion > 3){
                 System.out.println("La opcion ingresada no es valida, ingresela correctamente");
                 opcionTipoAvion = entrada.nextInt();
@@ -167,28 +171,33 @@ public class Menu {
             capacidad = entrada.nextInt();
             System.out.println("Ingrese el precio por km:");
             costoKm = entrada.nextDouble();
+            //El costo por km no puede ser negativo, si ingresa un valor negativo lo pedimos nuevamente
             while (costoKm < 0){
                 System.out.println("Ingrese un costo por km mayor a 0");
                 costoKm = entrada.nextDouble();
             }
             System.out.println("Ingrese la capacidad de combustible:");
             combustible = entrada.nextDouble();
+            //La capacidad del combustible no puede ser negativo, si ingresa un valor negativo lo pedimos nuevamente
             while (combustible < 0){
                 System.out.println("Ingrese la capacidad de combustible correctamente");
                 combustible = entrada.nextDouble();
             }
             System.out.println("Ingrese la velocidad maxima: ");
             velocidadMaxima = entrada.nextInt();
+            //La velocidad maxima no puede ser negativo, si ingresa un valor negativo lo pedimos nuevamente
             while (velocidadMaxima < 0){
                 System.out.println("Ingrese la velocidad maxima correctamente");
                 velocidadMaxima = entrada.nextInt();
             }
             System.out.println("Ingrese el tipo de propulsion que utiliza:\n1-Motor Reaccion \n2-Motor Helices \n3-Motor Pistones");
             opcPropulsion = entrada.nextInt();
+            //Si elige una opcion que no es valida, la pedimos de vuelta hasta que la ingrese correctamente
             while (opcPropulsion < 1 || opcPropulsion > 3){
                 System.out.println("La opcion ingresada no es valida, ingresela correctamente");
                 opcPropulsion = entrada.nextInt();
             }
+            // Asignamos la opcion elegida a una variable para pasarla por parametro del constructor
             if(opcPropulsion == 1){
                 tipo = Propulsion.MOTORREACCION;
             }else if(opcPropulsion == 2){
@@ -196,16 +205,19 @@ public class Menu {
             }else if(opcPropulsion == 3){
                 tipo = Propulsion.MOTORPISTONES;
             }
-        }catch (InputMismatchException e){
+        }catch (InputMismatchException e){ // Si en algun campo ingresa algun tipo de dato no valido pedimos todo de vuelta
+            
             System.out.println("Debe ingresar el numero indicando el tipo de avion");
             entrada.nextLine();
             pedirInfoAvion();
         }
 
-        if(opcionTipoAvion == 1){
+        if(opcionTipoAvion == 1){ // Si el avion es tipo gold preguntamos si tiene wifi
             int opcionWifi;
             System.out.println("Wi-fi: 1-si / 2-no");
             opcionWifi = entrada.nextInt();
+            
+            // instanciamos el avion segun la respuesta
             if(opcionWifi == 1){
                 avion = new Gold(true,combustible,costoKm,capacidad,velocidadMaxima,tipo);
             }else if(opcionWifi == 2){
@@ -247,12 +259,12 @@ public class Menu {
     private void eliminarCliente()
     {
         File archivo=new File("files\\Clientes.json");
-        ArrayList<Cliente> clientes= Main.json2arrayCliente();
+        ArrayList<Cliente> clientes= Main.json2arrayCliente();      //Cargo array clientes con los datos del json
         int i, pos, opcion;
         
         for(i=0; i<clientes.size(); i++)
         {
-            System.out.println(+i+1+"-"+clientes.get(i)+"\n");
+            System.out.println(+i+1+"-"+clientes.get(i)+"\n");      //Muestra array clientes
         }
         
         System.out.println("Ingrese un cliente para borrar");
@@ -267,7 +279,7 @@ public class Menu {
         pos=opcion-1;
         
         clientes.remove(pos);
-        Main.array2jsonCliente(clientes);        
+        Main.array2jsonCliente(clientes);                                           //Elimina cliente de json   
         
         aeroTaxi.clientes.remove(pos);
     }
