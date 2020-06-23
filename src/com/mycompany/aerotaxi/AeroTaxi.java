@@ -38,33 +38,30 @@ public class AeroTaxi {
         LocalDate hoy= LocalDate.now();
 
         int flag=0;
-        // eliminar la reserva de la lista de la empresa
+                                                                                 // eliminar la reserva de la lista de la empresa
         for(int i=0; i<reservas.size(); i++)
         {
             if(reservas.get(i).equals(reserva))
             {
                 if (hoy.isBefore(reserva.fecha.minusDays(1)))                 //Comparo si la fecha de hoy es menor a un dia anterior a la fecha de vuelo
                 {
-                    // Borramos la reserva de la lista de la empresa y del cliente
-                    //Tomar los datos del avion y fecha para eliminar la fecha de la lista de fechas ocupadas del avion
-//                    Avion avionUsado = reserva.avion;
-//                    LocalDate fechaBorrar = reserva.fecha;
+                                                                                 // Borramos la reserva de la lista de la empresa y del cliente
+                                                                               //Tomar los datos del avion y fecha para eliminar la fecha de la lista de fechas ocupadas del avion
+                  Avion avionUsado = reserva.avion;
+                   LocalDate fechaBorrar = reserva.fecha;
 
                     reservas.remove(i);
                     cliente.eliminarReserva(reserva);
                     System.out.println("\nReserva eliminada con exito de la lista de la empresa");
 
-                    // Ver forma de eliminar la fecha de la lista de fechas ocupadas del avion
-//                    avionUsado.liberarFecha(fechaBorrar);
-
-
-
-
+                                                                                        // Ver forma de eliminar la fecha de la lista de fechas ocupadas del avion
+                      avionUsado.liberarFecha(fechaBorrar);
                 }
                 else
                 {
                     System.out.println("\nNo se puede cancelar un vuelo con menos de 24hs de anticipación");
                 }
+                
                 flag=1;
             }
             else
@@ -77,7 +74,7 @@ public class AeroTaxi {
         }
         if(flag==0)
         {
-            System.out.println("\nLa reserva no existe o ha sido eliminada");
+            System.out.println("\nLa reserva no existe o ha sido eliminada de la lista de la EMPRESA");
         }
 
 
@@ -91,7 +88,7 @@ public class AeroTaxi {
         System.out.println("Indique cual reserva desea cancelar:");
         try{
             opcionBorrar = sc.nextInt();
-            System.out.println("Opcion seleccionada"+opcionBorrar);
+            System.out.println("Opcion seleccionada"+opcionBorrar); //################################
             while (opcionBorrar<1 || opcionBorrar > cliente.reservas.size()){
                 System.out.println("Ingrese una opcion valida: ");
                 opcionBorrar = sc.nextInt();
@@ -203,30 +200,6 @@ public class AeroTaxi {
         ciudades.add("Santiago");
         ciudades.add("Montevideo");
 
-
-        // Pedimos el dni del cliente
-
-        /*
-            System.out.println("Ingrese el DNI del cliente:");
-            try{
-                dni = sc.nextInt();
-            }catch (InputMismatchException e){
-                System.out.println("El numero de DNI debe ser ingresado en forma de un numero entero, sin puntos, guiones ni signos.");
-                sc.nextLine();
-                generarReserva();
-            }
-
-            cliente = buscarClienteDNI(dni); // Buscamos si el dni ingresado corresponde a un cliente existente
-
-            // Si el dni no corresponde a un cliente existente, generamos un nuevo cliente
-            if(cliente == null){
-                System.out.println("El DNI ingresado no corresponde a un cliente registrado, por favor complete estos datos para agregarlo a la lista: ");
-                cliente = registrarCliente(dni);
-                // El cliente se agregará a nuestra lista de clientes una vez que realize la reserva del vuelo
-            }
-
-
-         */
 
             System.out.println("Cliente: "+cliente.nombre+" "+cliente.apellido);
 
@@ -471,7 +444,7 @@ public class AeroTaxi {
     public LocalDate asignarFecha(){
 
         int dia,mes,anio;
-        LocalDate fecha = LocalDate.now();
+        LocalDate fecha = null;
 
         try{
             System.out.println("Ingrese dia de vuelo: ");
@@ -487,11 +460,11 @@ public class AeroTaxi {
         }catch (DateTimeException e ) {
             System.out.println("Debe ingresar fechas validas indicando el dia, mes y año ");
             sc.nextLine();
-            asignarFecha();
+            fecha = asignarFecha();
         }catch (InputMismatchException e){
             System.out.println("La fecha debe ser ingresada con numeros enteros indicando el dia, mes y año");
             sc.nextLine();
-            asignarFecha();
+            fecha =asignarFecha();
         }
 
         return fecha;
